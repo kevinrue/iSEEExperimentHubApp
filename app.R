@@ -1,6 +1,7 @@
 library(iSEE)
 library(DT)
 library(ExperimentHub)
+library(rintrojs)
 
 # lpfun ----
 
@@ -155,6 +156,17 @@ lpfun <- function() {
             }
         }, ignoreNULL=TRUE, ignoreInit=TRUE)
         # nocov end
+        
+        tour <- rbind(
+            data.frame(
+                element = "#launch",
+                intro = "Click this button when you are ready!"
+            )
+        )
+        
+        observeEvent(input[[iSEE:::.generalTourSteps]], {
+            introjs(session, options=list(steps=tour))
+        }, ignoreInit=TRUE)
 
         invisible(NULL)
     }
